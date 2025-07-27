@@ -1,0 +1,28 @@
+volumes:
+  libpms:
+    external: true
+networks:
+  unprotected:
+    external: true
+services:
+  flaskfarm-dev:
+    build:
+      context: .
+      no_cache: true
+    image: flaskfarm-dev
+    container_name: flaskfarm-dev
+    hostname: flaskfarm-dev.seoul
+    restart: unless-stopped
+    networks:
+      - unprotected
+    logging:
+      driver: json-file
+      options:
+        max-file: "5"
+        max-size: 10m
+    volumes:
+      - /home/ubuntu/projects/flaskfarm-dev:/flaskfarm-dev
+    environment:
+      PUID: ${YOUR_PUID}
+      PGID: ${YOUR_PGID}
+      TZ: Asia/Seoul

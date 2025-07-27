@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flaskfarm-dev"
+version = "0.1.0"
+dynamic = ["dependencies"]
+
+[tool.setuptools]
+packages = [
+    "flaskfarm"
+]
+
+[tool.setuptools.dynamic]
+dependencies = { file = "requirements.txt" }

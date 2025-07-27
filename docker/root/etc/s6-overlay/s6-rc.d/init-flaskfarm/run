@@ -1,0 +1,55 @@
+#!/usr/bin/with-contenv bash
+
+set -e
+
+echo ""
+echo "***** Copy files *****"
+echo ""
+
+source_path="/etc/flaskfarm-dev"
+mkdir -p "${FF_DATA}"
+chown abc:abc "${FF_DATA}"
+mkdir -p "${FF_ROOT}/.vscode"
+chown abc:abc "${FF_ROOT}/.vscode"
+mkdir -p "${FF_ROOT}/.devcontainer"
+chown abc:abc "${FF_ROOT}/.devcontainer"
+
+for child in "${source_path}"/* "${source_path}"/.*; do
+    child_name="${child##*/}"
+    case "${child_name}" in
+        pyproject.toml|requirements.txt)
+            dest_path="${FF_ROOT}/${child_name}"
+            if [[ ! -e "${dest_path}" ]]; then
+                cp -v "${child}" "${dest_path}" && \
+                chown abc:abc "${dest_path}"
+            fi
+            ;;
+        data|.vscode|.devcontainer)
+            case "${child_name}" in
+                data)
+                    parent="${FF_DATA}"
+                ;;
+                .vscode|.devcontainer)
+                    parent="${FF_ROOT}/${child_name}"
+                ;;
+            esac
+            if [[ -d "${child}" ]]; then
+                for grand_child in "${child}"/* "${child}"/.*; do
+                    grand_child_name="${grand_child##*/}"
+                    dest_path="${parent}/${grand_child_name}"
+                    if [[ ! -e "${dest_path}" ]]; then
+                        cp -av "${grand_child}" "${dest_path}" && \
+                        chown -R abc:abc "${dest_path}"
+                    fi
+                done
+            fi
+            ;;
+        *)
+            continue
+            ;;
+    esac
+
+done
+
+# 편집 및 접근이 용이한 파일에서 계속 진행
+source ${FF_DATA}/init

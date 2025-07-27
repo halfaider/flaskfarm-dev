@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Flaskfarm debugger",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "flaskfarm/main.py",
+            "python": "/usr/bin/python3",
+            "env": {
+                "GEVENT_SUPPORT": "true",
+            },
+            "args": ["--config", "data/config.yaml"],
+            "gevent": true,
+        },
+    ]
+}
