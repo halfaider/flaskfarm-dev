@@ -5,7 +5,9 @@
   ],
   "service": "flaskfarm-dev",
   "workspaceFolder": "/flaskfarm-dev",
-  "forwardPorts": [9999],
+  "forwardPorts": [
+    9999
+  ],
   "customizations": {
     "vscode": {
       "extensions": [
@@ -13,7 +15,6 @@
         "ms-python.black-formatter"
       ],
       "settings": {
-        "editor.formatOnSave": true,
         "[python]": {
           "editor.defaultFormatter": "ms-python.black-formatter"
         }

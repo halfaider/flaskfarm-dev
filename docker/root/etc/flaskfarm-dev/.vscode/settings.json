@@ -3,6 +3,5 @@
         "flaskfarm/lib",
         "data/plugins"
     ],
-    "python.analysis.include": [
-    ],
+    "python.analysis.include": [],
 }

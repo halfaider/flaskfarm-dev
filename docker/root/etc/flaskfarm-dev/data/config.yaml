@@ -1,8 +1,6 @@
 path_data: "/flaskfarm-dev/data"
 path_dev: "/flaskfarm-dev/data/plugins-dev"
-debug: true
 plugin_update: false
-use_gevent: false
 
 
 ##########################################################################

@@ -10,7 +10,10 @@
             "env": {
                 "GEVENT_SUPPORT": "true",
             },
-            "args": ["--config", "data/config.yaml"],
+            "args": [
+                "--config",
+                "data/config.yaml"
+            ],
             "gevent": true,
         },
     ]
