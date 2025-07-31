@@ -24,7 +24,7 @@ echo ""
 # flaskfarm 소스 설치
 if [[ -e "${FF_SRC}/.git" ]]; then
     # config.yaml의 debug 옵션이 true 가 아니면 pull 로 소스 업데이트
-    if [[ ! ${FF_DEBUG:-false} == true ]]; then
+    if [[ ! ${FF_DEBUG:-true} == true ]]; then
         git config --global --add safe.directory ${FF_SRC}
         git -C ${FF_SRC} pull "${FF_REPO}"
     fi
