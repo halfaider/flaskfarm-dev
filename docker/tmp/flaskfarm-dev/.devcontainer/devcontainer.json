@@ -1,7 +1,7 @@
 {
   "name": "flaskfarm-dev",
   "dockerComposeFile": [
-    "docker-compose.yaml"
+    "../docker-compose.yaml"
   ],
   "service": "flaskfarm-dev",
   "workspaceFolder": "/flaskfarm-dev",
