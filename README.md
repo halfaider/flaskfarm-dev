@@ -33,23 +33,24 @@ flaskfarm-dev/
   requirements.txt
 ```
 
-- `/flaskfarm-dev/flaskfarm`: flaskfarm의 소스 저장 경로.
-- `/flaskfarm-dev/data/ff-profile.sh`: `/flaskfarm-dev/data/init`, `/flaskfarm-dev/data/svc` 등에서 사용할 환경변수를 설정하는 파일. (심볼릭 링크: `/etc/profile.d/ff-profile.sh`)
-- `/flaskfarm-dev/data/config.yaml`: flaskfarm 설정 파일.
-- `/flaskfarm-dev/data/init`: s6-overlay 초기화 단계에서 호출됨.
-- `/flaskfarm-dev/data/svc`: s6-overlay 서비스 실행 단계에서 호출됨.
-- `/flaskfarm-dev/.vscode/launch.json`: VSCode 디버그 설정 파일.
-- `/flaskfarm-dev/.vscode/settings.json`: VSCode 설정 파일.
+- `flaskfarm-dev/src/flaskfarm`: flaskfarm의 소스 저장 경로.
+- `flaskfarm-dev/data/ff-profile.sh`: `/flaskfarm-dev/data/init`, `/flaskfarm-dev/data/svc` 등에서 사용할 환경변수를 설정하는 파일. (심볼릭 링크: `/etc/profile.d/ff-profile.sh`)
+- `flaskfarm-dev/data/config.yaml`: flaskfarm 설정 파일.
+- `flaskfarm-dev/data/init`: s6-overlay 초기화 단계에서 호출됨.
+- `flaskfarm-dev/data/svc`: s6-overlay 서비스 실행 단계에서 호출됨.
+- `flaskfarm-dev/.vscode/launch.json`: VSCode 디버그 설정 파일.
+- `flaskfarm-dev/.vscode/settings.json`: VSCode 설정 파일.
+- `flaskfarm-dev/.devcontainer/devcontainer.json`: VSCode Dev Container 설정 파일.
 
 ## ff-profile.sh
 
 - `FF_REPO`: flaskfarm의 소스 저장소
 - `FF_SRC`: flaskfarm의 소스를 저장할 경로
-- `FF_REQUIREMENTS_APT_INSTALL`: 패키치 설치 여부 (true | false)
+- `FF_REQUIREMENTS_APT_INSTALL`: 컨테이너 시작시 패키치 설치 여부 (true | false)
 - `FF_REQUIREMENTS_APT_LIST`: 패키지 설치 목록
-- `FF_DEBUG`: `config.yaml`의 `debug` 값이 `false`일 경우 컨테이너 시작시 flaskfarm이 서비스로 실행된다. `true`일 경우 flaskfarm이 서비스로 시작되지 않는다. (기본값: true)
+- `FF_DEBUG`: `config.yaml`의 `debug` 값이 `false`일 경우 컨테이너 시작시 flaskfarm이 서비스로 실행됩니다. `true`일 경우 flaskfarm이 서비스로 시작되지 않습니다. (기본값: true)
 
-  flaskfarm이 서비스로 실행될 경우 celery도 백그라운드에서 서비스로 시작된다. 따라서 `설정>일반설정>비동기 작업>시작시 celery 실행`을 켜지 않아도 된다. 하지만 디버깅으로 실행하면 celery는 수동으로 실행해야 한다. 혹은 `비동기 작업` 설정에서 실행.
+  flaskfarm이 서비스로 실행될 경우 celery도 백그라운드에서 서비스로 시작됩니다. 따라서 `설정>일반설정>비동기 작업>시작시 celery 실행`을 켜지 않아도 돼요.
 - 나머지 값은 `config.yaml`에서 설정한 값을 그대로 사용
 
 ## 설치
