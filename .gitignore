@@ -4,3 +4,4 @@ data/
 src/
 .env
 docker-compose.yaml
+!/docker/tmp/**
