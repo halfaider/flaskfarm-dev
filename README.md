@@ -85,10 +85,10 @@ docker compose up -d flaskfarm-dev --force-recreate
 
 사전에 VSCode에 `Dev Containers` 확장이 설치되어 있어야 합니다.
 
-컨테이너가 생성되면 `.devcontainer` 폴더가 생성됩니다. 이 `.devcontainer` 폴더의 `devcontainer.json` 설정으로 컨테이너의 워크스페이스를 불러옵니다.
+컨테이너가 생성되면 `.devcontainer` 폴더가 생성됩니다. 이 `.devcontainer` 폴더의 `devcontainer.json` 설정으로 Dev Container를 실행할 겁니다.
 
-명령어 팔레트(`Ctrl + Shift + P`)로 `Dev Containers: Reopen in Container`를 실행하세요.
+명령어 팔레트(`Ctrl + Shift + P`)로 `Dev Containers: Rebuild Without Cache and Reopen in Container`를 실행하세요.
 
 ### 디버깅 실행
 
-Start Debugging(`F5`)으로 Flaskfarm debugger가 실행되는지 확인하세요.
+Start Debugging(`F5`)으로 Flaskfarm debugger가 실행되는지 확인하세요. 컨테이너 생성 직후에는 초기화 과정이 아직 실행중이라 바로 실행되지 않을 수 있어요.
