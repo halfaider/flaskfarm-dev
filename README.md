@@ -3,25 +3,25 @@ vscode의 dev 컨테이너 접속 방식을 이용하여 flaskfarm을 디버깅�
 
 ## 컨테이너의 폴더 구조
 ```
-/etc
-  /profile.d
+etc/
+  profile.d/
     ff-profile.sh -> /flaskfarm-dev/data/ff-profile.sh
-/flaskfarm-dev
-  /.devcontainer
+flaskfarm-dev/
+  .devcontainer/
     devcontainer.json
-  /.vscode
+  .vscode/
     launch.json
     settings.json
-  /data
-    /plugins-dev
+  data/
+    plugins-dev/
     config.yaml
     ff-profile.sh
     init
     svc
-  /docker
-    /etc/s6-overlay/s6-rc.d
-    /tmp/flaskfarm-dev
-  /src/flaskfarm
+  docker/
+    etc/s6-overlay/s6-rc.d/
+    tmp/flaskfarm-dev/
+  src/flaskfarm/
   .env
   .env.sample
   .gitignore
