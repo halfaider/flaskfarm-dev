@@ -8,5 +8,7 @@ ENV DEBIAN_FRONTEND="noninteractive"
 ENV C_FORCE_ROOT=true
 RUN sed -i '1i deb https://ftp.kaist.ac.kr/ubuntu-ports/ jammy main' /etc/apt/sources.list && \
     sed -i '2i deb-src https://ftp.kaist.ac.kr/ubuntu-ports/ jammy main' /etc/apt/sources.list
-COPY root/ /
+RUN mkdir -p /tmp/flaskfarm-dev
+COPY docker/etc/ /etc
+COPY docker/tmp/ /tmp
 EXPOSE 9999/tcp

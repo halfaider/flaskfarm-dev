@@ -4,13 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flaskfarm-dev"
-version = "0.1.2"
+version = "0.1.3"
 dynamic = ["dependencies"]
 
 [tool.setuptools]
-packages = [
-    "flaskfarm"
-]
+package-dir = {"" = "src"}
+packages = ["flaskfarm"]
 
 [tool.setuptools.dynamic]
 dependencies = { file = "requirements.txt" }

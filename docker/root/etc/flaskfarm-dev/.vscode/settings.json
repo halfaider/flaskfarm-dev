@@ -1,7 +1,0 @@
-{
-    "python.analysis.extraPaths": [
-        "flaskfarm/lib",
-        "data/plugins"
-    ],
-    "python.analysis.include": [],
-}

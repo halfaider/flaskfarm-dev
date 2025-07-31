@@ -2,6 +2,7 @@ services:
   flaskfarm-dev:
     build:
       context: .
+      no_cache: true
     image: flaskfarm-dev
     container_name: flaskfarm-dev
     restart: unless-stopped

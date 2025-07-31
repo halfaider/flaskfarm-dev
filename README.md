@@ -19,14 +19,15 @@ vscode의 dev 컨테이너 접속 방식을 이용하여 flaskfarm을 디버깅�
     init
     svc
   /docker
-    /root
-    .env
-    .env.sample
-    docker-compose.sample.yaml
-    docker-compose.yaml
-    Dockerfile
-  /flaskfarm
+    /etc/s6-overlay/s6-rc.d
+    /tmp/flaskfarm-dev
+  /src/flaskfarm
+  .env
+  .env.sample
   .gitignore
+  docker-compose.sample.yaml
+  docker-compose.yaml
+  Dockerfile
   pyproject.toml
   README.md
   requirements.txt
@@ -63,27 +64,14 @@ git clone https://github.com/halfaider/flaskfarm-dev
 
 예를 들어 `/home/ubuntu/projects/flaskfarm-dev` 경로에 clone이 되었다면 `File > Open Folder...`으로 `/home/ubuntu/projects/flaskfarm-dev` 경로를 워크스페이스로 엽니다.
 
-워크스페이스에 아래처럼 docker 폴더와 README.md 파일만 존해합니다.
-```
-docker
-README.md
-```
-
 ### docker-compose.yaml을 작성하세요.
 
-`docker/docker-compose.sample.yaml`을 참조해서 본인의 `docker-compose.yaml`을 만드세요.
+`docker-compose.sample.yaml`을 참조해서 본인의 `docker-compose.yaml`을 만드세요.
 필요하다면 `.env.sample`을 참고하여 `.env`파일도 생성하세요.
-
-```
-docker/
-  .env
-  docker-compose.yaml
-```
 
 ### docker compose로 이미지를 빌드하세요.
 
 ```bash
-cd docker
 docker compose build --no-cache
 ```
 

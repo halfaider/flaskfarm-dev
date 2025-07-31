@@ -1,5 +1,6 @@
-*
-!/docker
-!/docker/**
-!.gitignore
-!README.md
+.devcontainer/
+.vscode/
+data/
+src/
+.env
+docker-compose.yaml
