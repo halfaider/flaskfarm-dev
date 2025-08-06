@@ -39,14 +39,6 @@ echo ""
 pip install -U pip setuptools && pip install -e "${FF_ROOT}"
 
 echo ""
-echo "***** Change the folder permissions *****"
-echo ""
-[[ -d "${FF_DATA}" ]] && chown abc:abc -R "${FF_DATA}"
-[[ -d "${FF_SRC}" ]] && chown abc:abc -R "${FF_SRC}"
-mkdir -p "${FF_PATH_DEV}"
-[[ -d "${FF_PATH_DEV}" ]] && chown abc:abc -R "${FF_PATH_DEV}"
-
-echo ""
 echo "***** Cleanup *****"
 echo ""
 apt-get clean && \
