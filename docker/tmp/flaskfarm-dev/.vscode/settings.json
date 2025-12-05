@@ -5,4 +5,6 @@
         "data/plugins-dev"
     ],
     "python.analysis.include": [],
+    "python.analysis.exclude": [],
+    "python.analysis.autoImportCompletions": false,
 }
