@@ -1,8 +1,8 @@
 {
     "python.analysis.extraPaths": [
         "flaskfarm/src/flaskfarm/lib",
-        "flaskfarm/data/plugins",
-        "flaskfarm/data/plugins-dev"
+        "flaskfarm/src/plugins-dev",
+        "flaskfarm/data/plugins"
     ],
     "python.analysis.include": [],
     "python.analysis.exclude": [],
