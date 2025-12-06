@@ -23,6 +23,7 @@ echo "***** Clone flaskfarm *****"
 echo ""
 # flaskfarm 소스 설치
 mkdir -p "${FF_SRC}"
+chown abc:abc "${FF_SRC}"
 if [[ -e "${FF_SRC}/flaskfarm/.git" ]]; then
     # config.yaml의 debug 옵션이 true 가 아니면 pull 로 소스 업데이트
     if [[ ! ${FF_DEBUG:-true} == true ]]; then
@@ -31,6 +32,7 @@ if [[ -e "${FF_SRC}/flaskfarm/.git" ]]; then
     fi
 else
     git clone "${FF_REPO}" "${FF_SRC}/flaskfarm"
+    chown abc:abc "${FF_SRC}/flaskfarm"
 fi
 
 echo ""

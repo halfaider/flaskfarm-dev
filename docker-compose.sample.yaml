@@ -13,6 +13,7 @@ services:
         max-size: 10m
     volumes:
       - ${YOUR_FOLDER}/flaskfarm-dev:/flaskfarm-dev
+      - ${YOUR_FOLDER}/projects:/projects
     environment:
       PUID: ${YOUR_PUID}
       PGID: ${YOUR_PGID}

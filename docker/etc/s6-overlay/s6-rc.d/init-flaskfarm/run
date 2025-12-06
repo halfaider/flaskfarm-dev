@@ -9,22 +9,24 @@ echo ""
 source_path="/tmp/flaskfarm-dev"
 mkdir -p "${FF_DATA}"
 chown abc:abc "${FF_DATA}"
-mkdir -p "${FF_ROOT}/.vscode"
-chown abc:abc "${FF_ROOT}/.vscode"
-mkdir -p "${FF_ROOT}/.devcontainer"
-chown abc:abc "${FF_ROOT}/.devcontainer"
+mkdir -p "${WORKSPACE}/.vscode"
+chown abc:abc "${WORKSPACE}/.vscode"
+mkdir -p "${FF_DEV}/.devcontainer"
+chown abc:abc "${FF_DEV}/.devcontainer"
 
 for child in "${source_path}"/* "${source_path}"/.*; do
     child_name="${child##*/}"
     case "${child_name}" in
-
         data|.vscode|.devcontainer)
             case "${child_name}" in
                 data)
                     parent="${FF_DATA}"
                 ;;
-                .vscode|.devcontainer)
-                    parent="${FF_ROOT}/${child_name}"
+                .vscode)
+                    parent="${WORKSPACE}/${child_name}"
+                ;;
+                .devcontainer)
+                    parent="${FF_DEV}/${child_name}"
                 ;;
             esac
             if [[ -d "${child}" ]]; then
@@ -38,7 +40,7 @@ for child in "${source_path}"/* "${source_path}"/.*; do
                 done
             fi
             ;;
-        file1.sample|file2.sample)
+        pyproject.toml|requirements.txt)
             dest_path="${FF_ROOT}/${child_name}"
             if [[ ! -e "${dest_path}" ]]; then
                 cp -v "${child}" "${dest_path}" && \

@@ -5,42 +5,42 @@ vscode의 dev 컨테이너 접속 방식을 이용하여 flaskfarm을 디버깅�
 ```
 etc/
   profile.d/
-    ff-profile.sh -> /flaskfarm-dev/data/ff-profile.sh
+    ff-profile.sh -> /projects/flaskfarm/data/ff-profile.sh
 flaskfarm-dev/
   .devcontainer/
     devcontainer.json
-  .vscode/
-    launch.json
-    settings.json
-  data/
-    plugins-dev/
-    config.yaml
-    ff-profile.sh
-    init
-    svc
   docker/
-    etc/s6-overlay/s6-rc.d/
-    tmp/flaskfarm-dev/
-  src/flaskfarm/
   .env
   .env.sample
   .gitignore
   docker-compose.sample.yaml
   docker-compose.yaml
   Dockerfile
-  pyproject.toml
   README.md
-  requirements.txt
+projects/
+  .vscode/
+    launch.json
+    settings.json
+  flaskfarm/
+    data/
+      config.yaml
+      ff-profile.sh
+      init
+      svc
+    src/
+      flaskfarm/
+    pyproject.toml
+    requirements.txt
 ```
 
-- `flaskfarm-dev/src/flaskfarm`: flaskfarm의 소스 저장 경로.
-- `flaskfarm-dev/data/ff-profile.sh`: `/flaskfarm-dev/data/init`, `/flaskfarm-dev/data/svc` 등에서 사용할 환경변수를 설정하는 파일. (심볼릭 링크: `/etc/profile.d/ff-profile.sh`)
-- `flaskfarm-dev/data/config.yaml`: flaskfarm 설정 파일.
-- `flaskfarm-dev/data/init`: s6-overlay 초기화 단계에서 호출됨.
-- `flaskfarm-dev/data/svc`: s6-overlay 서비스 실행 단계에서 호출됨.
-- `flaskfarm-dev/.vscode/launch.json`: VSCode 디버그 설정 파일.
-- `flaskfarm-dev/.vscode/settings.json`: VSCode 설정 파일.
-- `flaskfarm-dev/.devcontainer/devcontainer.json`: VSCode Dev Container 설정 파일.
+- `flaskfarm-dev`: 이 저장소가 clone 되어 있는 경로.
+- `projects/flaskfarm/src/flaskfarm`: flaskfarm 저장소를 clone할 경로.
+- `projects/flaskfarm/data/ff-profile.sh`: `/projects/flaskfarm/data/init`, `/projects/flaskfarm/data/svc` 등에서 사용할 환경변수를 설정하는 파일. (심볼릭 링크: `/etc/profile.d/ff-profile.sh`)
+- `projects/flaskfarm/data/config.yaml`: flaskfarm 설정 파일.
+- `projects/flaskfarm/data/init`: s6-overlay 초기화 단계에서 호출됨.
+- `projects/flaskfarm/data/svc`: s6-overlay 서비스 실행 단계에서 호출됨.
+- `projects/.vscode/launch.json`: VSCode 디버그 설정 파일.
+- `projects/.vscode/settings.json`: VSCode 설정 파일.
 
 ## ff-profile.sh
 
@@ -88,7 +88,7 @@ docker compose up -d flaskfarm-dev --force-recreate
 
 컨테이너가 생성되면 `.devcontainer` 폴더가 생성됩니다. 이 `.devcontainer` 폴더의 `devcontainer.json` 설정으로 Dev Container를 실행할 겁니다.
 
-명령어 팔레트(`Ctrl + Shift + P`)로 `Dev Containers: Rebuild Without Cache and Reopen in Container`를 실행하세요.
+명령어 팔레트(`Ctrl + Shift + P`)로 `Dev Containers: Reopen in Container`를 실행하세요.
 
 ### 디버깅 실행
 

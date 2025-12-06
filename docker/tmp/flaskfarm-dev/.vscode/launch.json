@@ -5,14 +5,14 @@
             "name": "Flaskfarm debugger",
             "type": "debugpy",
             "request": "launch",
-            "program": "src/flaskfarm/main.py",
+            "program": "flaskfarm/src/flaskfarm/main.py",
             "python": "/usr/bin/python3",
             "env": {
                 "GEVENT_SUPPORT": "true",
             },
             "args": [
                 "--config",
-                "data/config.yaml"
+                "flaskfarm/data/config.yaml"
             ],
             "gevent": true,
         },

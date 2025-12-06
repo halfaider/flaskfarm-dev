@@ -4,7 +4,7 @@
     "../docker-compose.yaml"
   ],
   "service": "flaskfarm-dev",
-  "workspaceFolder": "/flaskfarm-dev",
+  "workspaceFolder": "/projects",
   "forwardPorts": [
     9999
   ],

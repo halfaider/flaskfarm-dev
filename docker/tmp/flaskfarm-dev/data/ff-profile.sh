@@ -9,11 +9,7 @@ python3-pip
 redis-server
 git
 net-tools
-ffmpeg
-fuse3
-aria2
 unzip
-mkvtoolnix
 "
 
 ##### parsing config.yaml #####

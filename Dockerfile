@@ -1,9 +1,13 @@
 FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy
 LABEL maintainer='halfaider'
-ARG FF_ROOT="/flaskfarm-dev"
+ARG WORKSPACE="/projects"
+ARG FF_DEV="/flaskfarm-dev"
+ARG FF_ROOT="${WORKSPACE}/flaskfarm"
 ARG FF_DATA="${FF_ROOT}/data"
-ENV FF_DATA="${FF_DATA}"
+ENV WORKSPACE="${WORKSPACE}"
+ENV FF_DEV="${FF_DEV}"
 ENV FF_ROOT="${FF_ROOT}"
+ENV FF_DATA="${FF_DATA}"
 ENV DEBIAN_FRONTEND="noninteractive"
 ENV C_FORCE_ROOT=true
 RUN sed -i '1i deb https://ftp.kaist.ac.kr/ubuntu-ports/ jammy main' /etc/apt/sources.list && \

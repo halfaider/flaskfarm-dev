@@ -1,5 +1,5 @@
-path_data: "/flaskfarm-dev/data"
-path_dev: "/flaskfarm-dev/src/plugins-dev"
+path_data: "/projects/flaskfarm/data"
+path_dev: "/projects/flaskfarm/src/plugins-dev"
 plugin_update: false
 
 
