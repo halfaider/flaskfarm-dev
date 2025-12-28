@@ -1,0 +1,25 @@
+{
+  "name": "flaskfarm-dev",
+  "dockerComposeFile": [
+    "../docker-compose.yaml"
+  ],
+  "service": "flaskfarm-dev",
+  "workspaceFolder": "/projects",
+  "forwardPorts": [
+    9999
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.debugpy",
+        "ms-python.black-formatter"
+      ],
+      "settings": {
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter"
+        }
+      }
+    }
+  }
+}

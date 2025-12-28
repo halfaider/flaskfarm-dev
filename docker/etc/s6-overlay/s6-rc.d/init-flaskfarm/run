@@ -11,22 +11,17 @@ mkdir -p "${FF_DATA}"
 chown abc:abc "${FF_DATA}"
 mkdir -p "${WORKSPACE}/.vscode"
 chown abc:abc "${WORKSPACE}/.vscode"
-mkdir -p "${FF_DEV}/.devcontainer"
-chown abc:abc "${FF_DEV}/.devcontainer"
 
 for child in "${source_path}"/* "${source_path}"/.*; do
     child_name="${child##*/}"
     case "${child_name}" in
-        data|.vscode|.devcontainer)
+        data|.vscode)
             case "${child_name}" in
                 data)
                     parent="${FF_DATA}"
                 ;;
                 .vscode)
                     parent="${WORKSPACE}/${child_name}"
-                ;;
-                .devcontainer)
-                    parent="${FF_DEV}/${child_name}"
                 ;;
             esac
             if [[ -d "${child}" ]]; then

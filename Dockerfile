@@ -1,11 +1,9 @@
 FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy
 LABEL maintainer='halfaider'
 ARG WORKSPACE="/projects"
-ARG FF_DEV="/flaskfarm-dev"
 ARG FF_ROOT="${WORKSPACE}/flaskfarm"
 ARG FF_DATA="${FF_ROOT}/data"
 ENV WORKSPACE="${WORKSPACE}"
-ENV FF_DEV="${FF_DEV}"
 ENV FF_ROOT="${FF_ROOT}"
 ENV FF_DATA="${FF_DATA}"
 ENV DEBIAN_FRONTEND="noninteractive"

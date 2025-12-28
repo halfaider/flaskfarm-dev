@@ -6,17 +6,6 @@ vscode의 dev 컨테이너 접속 방식을 이용하여 flaskfarm을 디버깅�
 etc/
   profile.d/
     ff-profile.sh -> /projects/flaskfarm/data/ff-profile.sh
-flaskfarm-dev/
-  .devcontainer/
-    devcontainer.json
-  docker/
-  .env
-  .env.sample
-  .gitignore
-  docker-compose.sample.yaml
-  docker-compose.yaml
-  Dockerfile
-  README.md
 projects/
   .vscode/
     launch.json
@@ -33,14 +22,13 @@ projects/
     requirements.txt
 ```
 
-- `flaskfarm-dev`: 이 저장소가 clone 되어 있는 경로.
-- `projects/flaskfarm/src/flaskfarm`: flaskfarm 저장소를 clone할 경로.
-- `projects/flaskfarm/data/ff-profile.sh`: `/projects/flaskfarm/data/init`, `/projects/flaskfarm/data/svc` 등에서 사용할 환경변수를 설정하는 파일. (심볼릭 링크: `/etc/profile.d/ff-profile.sh`)
-- `projects/flaskfarm/data/config.yaml`: flaskfarm 설정 파일.
-- `projects/flaskfarm/data/init`: s6-overlay 초기화 단계에서 호출됨.
-- `projects/flaskfarm/data/svc`: s6-overlay 서비스 실행 단계에서 호출됨.
-- `projects/.vscode/launch.json`: VSCode 디버그 설정 파일.
-- `projects/.vscode/settings.json`: VSCode 설정 파일.
+- `/projects/flaskfarm/src/flaskfarm`: flaskfarm 저장소를 clone할 경로.
+- `/projects/flaskfarm/data/ff-profile.sh`: `/projects/flaskfarm/data/init`, `/projects/flaskfarm/data/svc` 등에서 사용할 환경변수를 설정하는 파일. (심볼릭 링크: `/etc/profile.d/ff-profile.sh`)
+- `/projects/flaskfarm/data/config.yaml`: flaskfarm 설정 파일.
+- `/projects/flaskfarm/data/init`: s6-overlay 초기화 단계에서 호출됨.
+- `/projects/flaskfarm/data/svc`: s6-overlay 서비스 실행 단계에서 호출됨.
+- `/projects/.vscode/launch.json`: VSCode 디버깅 설정 파일.
+- `/projects/.vscode/settings.json`: VSCode 설정 파일.
 
 ## ff-profile.sh
 
@@ -63,33 +51,29 @@ git clone https://github.com/halfaider/flaskfarm-dev
 
 ### VSCode에서 clone한 폴더를 워크스페이스로 여세요.
 
-예를 들어 `/home/ubuntu/projects/flaskfarm-dev` 경로에 clone이 되었다면 `File > Open Folder...`으로 `/home/ubuntu/projects/flaskfarm-dev` 경로를 워크스페이스로 엽니다.
+예를 들어 `/home/ubuntu/projects/flaskfarm-dev` 경로에 clone이 되었다면 명령어 팔레트에서 `File: Open Folder...`을 선택해 `/home/ubuntu/projects/flaskfarm-dev` 경로를 워크스페이스로 엽니다.
 
 ### docker-compose.yaml을 작성하세요.
 
 `docker-compose.sample.yaml`을 참조해서 본인의 `docker-compose.yaml`을 만드세요.
 필요하다면 `.env.sample`을 참고하여 `.env`파일도 생성하세요.
 
-### docker compose로 이미지를 빌드하세요.
+컨테이너에서는 `/projects` 폴더를 워크스페이스로 사용합니다.
+도커 호스트의 적당한 폴더를 컨테이너의 `/projects` 폴더와 매핑하세요.
 
-```bash
-docker compose build --no-cache
-```
+### 컨테이너의 워크스페이스 열기
 
-### docker compose로 컨테이너를 생성하세요.
-
-```bash
-docker compose up -d flaskfarm-dev --force-recreate
-```
-
-### devcontainer 접속
-
-사전에 VSCode에 `Dev Containers` 확장이 설치되어 있어야 합니다.
-
-컨테이너가 생성되면 `.devcontainer` 폴더가 생성됩니다. 이 `.devcontainer` 폴더의 `devcontainer.json` 설정으로 Dev Container를 실행할 겁니다.
-
-명령어 팔레트(`Ctrl + Shift + P`)로 `Dev Containers: Reopen in Container`를 실행하세요.
+명령어 팔레트에서 `Dev Containers: Reopen in Container..`를 선택합니다. VSCode에서 자동으로 컨테이너를 생성하고 접속합니다.
 
 ### 디버깅 실행
 
 Start Debugging(`F5`)으로 Flaskfarm debugger가 실행되는지 확인하세요. 컨테이너 생성 직후에는 초기화 과정이 아직 실행중이라 바로 실행되지 않을 수 있어요.
+
+디버깅 서버가 실행되면 자동으로 9999포트가 forward 됩니다. `http://localhost:9999`로 디버깅 서버에 접속하세요.
+
+### celery 실행
+
+`비동기 작업(celery)`의 celery 실행 명령어는 아래처럼 입력하세요.
+```
+celery -A flaskfarm.src.flaskfarm.main.celery worker --loglevel=info --pool=gevent --concurrency=2 --config_filepath=flaskfarm/data/config.yaml --running_type=native
+```
