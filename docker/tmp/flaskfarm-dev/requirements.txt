@@ -25,3 +25,4 @@ SQLAlchemy
 telepot-mod
 Werkzeug
 xmltodict
+httpx[http2]
