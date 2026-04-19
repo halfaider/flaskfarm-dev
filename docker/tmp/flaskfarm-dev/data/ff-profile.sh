@@ -10,6 +10,7 @@ redis-server
 git
 net-tools
 unzip
+openssh-server
 "
 
 ##### parsing config.yaml #####

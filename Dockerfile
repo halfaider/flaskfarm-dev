@@ -16,4 +16,5 @@ RUN sed -i '1i deb https://ftp.kaist.ac.kr/ubuntu-ports/ jammy main' /etc/apt/so
 RUN mkdir -p /tmp/flaskfarm-dev
 COPY docker/etc/ /etc
 COPY docker/tmp/ /tmp
+EXPOSE 22/tcp
 EXPOSE 9999/tcp

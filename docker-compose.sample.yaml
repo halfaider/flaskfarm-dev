@@ -3,6 +3,7 @@ services:
     build:
       context: .
       no_cache: true
+      network: host
     image: flaskfarm-dev
     container_name: flaskfarm-dev
     restart: unless-stopped
@@ -17,3 +18,4 @@ services:
       PUID: ${YOUR_PUID}
       PGID: ${YOUR_PGID}
       TZ: Asia/Seoul
+      #SSH_PASSWORD: ${YOUR_SSH_PASSWORD} # default: flaskfarm

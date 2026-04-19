@@ -65,6 +65,15 @@ git clone https://github.com/halfaider/flaskfarm-dev
 
 명령어 팔레트에서 `Dev Containers: Reopen in Container..`를 선택합니다. VSCode에서 자동으로 컨테이너를 생성하고 접속합니다.
 
+Dev Container로 연결이 어려운 경우 컨테이너의 SSH 서버에 직접 접속하세요. SSH 비밀번호는 `docker-compose.yaml`의 `environment`에서 지정할 수 있습니다.
+```yaml
+environment:
+  PUID: ${YOUR_PUID}
+  PGID: ${YOUR_PGID}
+  TZ: Asia/Seoul
+  SSH_PASSWORD: ${YOUR_SSH_PASSWORD} # default: flaskfarm
+```
+
 ### 디버깅 실행
 
 Start Debugging(`F5`)으로 Flaskfarm debugger가 실행되는지 확인하세요. 컨테이너 생성 직후에는 초기화 과정이 아직 실행중이라 바로 실행되지 않을 수 있어요.

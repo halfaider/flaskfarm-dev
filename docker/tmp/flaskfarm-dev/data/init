@@ -19,6 +19,17 @@ echo ""
 [ ${FF_REQUIREMENTS_APT_INSTALL:-true} == true ] && apt-get update && apt-get install -y ${FF_REQUIREMENTS_APT_LIST}
 
 echo ""
+echo "***** Setup SSH *****"
+echo ""
+mkdir -p /var/run/sshd
+
+# root 계정 비밀번호 설정
+PASS="${SSH_PASSWORD:-flaskfarm}"
+echo "root:${PASS}" | chpasswd
+sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+
+echo ""
 echo "***** Clone flaskfarm *****"
 echo ""
 # flaskfarm 소스 설치
