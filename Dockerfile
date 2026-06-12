@@ -11,8 +11,9 @@ ENV DEBIAN_FRONTEND="noninteractive"
 ENV C_FORCE_ROOT=true
 # noble부터는 전역 환경에서 pip install이 기본 차단됨
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
-RUN sed -i '1i deb https://ftp.kaist.ac.kr/ubuntu-ports/ jammy main' /etc/apt/sources.list && \
-    sed -i '2i deb-src https://ftp.kaist.ac.kr/ubuntu-ports/ jammy main' /etc/apt/sources.list && \
+RUN sed -i 's|archive.ubuntu.com|ftp.kaist.ac.kr|g' /etc/apt/sources.list && \
+    sed -i 's|security.ubuntu.com|ftp.kaist.ac.kr|g' /etc/apt/sources.list && \
+    sed -i 's|ports.ubuntu.com|ftp.kaist.ac.kr/ubuntu-ports|g' /etc/apt/sources.list && \
     apt-get update && \
     apt-get install -y \
     python3.10 \
