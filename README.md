@@ -34,8 +34,8 @@ projects/
 
 - `FF_REPO`: flaskfarm의 소스 저장소
 - `FF_SRC`: flaskfarm의 소스를 저장할 경로
-- `FF_REQUIREMENTS_APT_INSTALL`: 컨테이너 시작시 패키치 설치 여부 (true | false)
-- `FF_REQUIREMENTS_APT_LIST`: 패키지 설치 목록
+- `FF_USER_APT_INSTALL`: 컨테이너 시작시 사용자가 추가한 APT 패키지 설치 여부 (true | false)
+- `FF_USER_APT_LIST`: 사용자가 추가할 APT 패키지 목록
 - `FF_DEBUG`: `config.yaml`의 `debug` 값이 `false`일 경우 컨테이너 시작시 flaskfarm이 서비스로 실행됩니다. `true`일 경우 flaskfarm이 서비스로 시작되지 않습니다. (기본값: true)
 
   flaskfarm이 서비스로 실행될 경우 celery도 백그라운드에서 서비스로 시작됩니다. 따라서 `설정>일반설정>비동기 작업>시작시 celery 실행`을 켜지 않아도 돼요.
@@ -43,36 +43,60 @@ projects/
 
 ## 설치
 
-### 이 저장소를 적당한 폴더에 clone 하세요.
+### 공통 단계: 저장소 클론 및 워크스페이스 열기
+VSCode의 Dev Containers 환경을 사용하기 위해 이 저장소를 로컬에 클론하고 워크스페이스로 열어야 합니다.
 
-```bash
-git clone https://github.com/halfaider/flaskfarm-dev
-```
+1. **저장소 클론**
+   ```bash
+   git clone https://github.com/halfaider/flaskfarm-dev
+   ```
+2. **VSCode에서 워크스페이스 열기**
+   * VSCode에서 `File: Open Folder...`를 선택해 클론한 `flaskfarm-dev` 폴더를 엽니다.
 
-### VSCode에서 clone한 폴더를 워크스페이스로 여세요.
+---
 
-예를 들어 `/home/ubuntu/projects/flaskfarm-dev` 경로에 clone이 되었다면 명령어 팔레트에서 `File: Open Folder...`을 선택해 `/home/ubuntu/projects/flaskfarm-dev` 경로를 워크스페이스로 엽니다.
+### 방법 1. GitHub Container Registry (GHCR) 이미지 사용 (권장)
+별도의 빌드 과정 없이 이미 빌드된 이미지를 다운로드받아 즉시 개발 환경을 구성합니다.
 
-### docker-compose.yaml을 작성하세요.
+1. **`docker-compose.yaml` 작성**
+   * `docker-compose.sample.yaml`을 참조해서 본인의 `docker-compose.yaml`을 생성합니다.
+   * 기본적으로 `image: ghcr.io/halfaider/flaskfarm-dev:latest`를 사용하여 이미지를 받아오도록 구성되어 있습니다.
+2. **`.env` 작성 (선택)**
+   * 필요하다면 `.env.sample`을 참고하여 `.env` 파일을 생성합니다.
 
-`docker-compose.sample.yaml`을 참조해서 본인의 `docker-compose.yaml`을 만드세요.
-필요하다면 `.env.sample`을 참고하여 `.env`파일도 생성하세요.
+---
 
-컨테이너에서는 `/projects` 폴더를 워크스페이스로 사용합니다.
-도커 호스트의 적당한 폴더를 컨테이너의 `/projects` 폴더와 매핑하세요.
+### 방법 2. 로컬에서 직접 빌드하여 사용
+Dockerfile의 내용을 직접 커스터마이징하거나 로컬 환경에서 항상 최신 이미지를 빌드하여 개발 환경을 구성하고자 할 때 사용합니다.
 
-### 컨테이너의 워크스페이스 열기
+1. **`docker-compose.yaml` 작성 및 빌드 옵션 활성화**
+   * `docker-compose.sample.yaml`을 참조해서 본인의 `docker-compose.yaml`을 생성합니다.
+   * `image: ghcr.io/...` 설정을 주석 처리하고, 주석 해제하여 로컬 빌드 블록(`build:`)을 활성화합니다.
+     ```yaml
+     build:
+       context: .
+       no_cache: true
+       network: host
+     image: flaskfarm-dev
+     ```
+2. **`.env` 작성 (선택)**
+   * 필요하다면 `.env.sample`을 참고하여 `.env` 파일을 생성합니다.
 
-명령어 팔레트에서 `Dev Containers: Reopen in Container..`를 선택합니다. VSCode에서 자동으로 컨테이너를 생성하고 접속합니다.
+---
 
-Dev Container로 연결이 어려운 경우 컨테이너의 SSH 서버에 직접 접속하세요. SSH 비밀번호는 `docker-compose.yaml`의 `environment`에서 지정할 수 있습니다.
-```yaml
-environment:
-  PUID: ${YOUR_PUID}
-  PGID: ${YOUR_PGID}
-  TZ: Asia/Seoul
-  SSH_PASSWORD: ${YOUR_SSH_PASSWORD} # default: flaskfarm
-```
+### 컨테이너 접속 및 워크스페이스 열기
+
+1. **VSCode Dev Container 접속**
+   * 명령어 팔레트에서 `Dev Containers: Reopen in Container`를 선택합니다. VSCode가 자동으로 이미지 빌드(또는 Pull) 및 컨테이너 접속을 완료합니다.
+2. **SSH 직접 접속 (대안)**
+   * Dev Container 연결이 어려운 경우 컨테이너의 SSH 서버에 직접 접속합니다. SSH 비밀번호는 `docker-compose.yaml`의 `environment`에서 지정할 수 있습니다.
+     ```yaml
+     environment:
+       PUID: ${YOUR_PUID}
+       PGID: ${YOUR_PGID}
+       TZ: Asia/Seoul
+       SSH_PASSWORD: ${YOUR_SSH_PASSWORD} # 기본값: flaskfarm
+     ```
 
 ### 디버깅 실행
 

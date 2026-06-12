@@ -2,16 +2,8 @@
 
 declare -x FF_REPO="https://github.com/flaskfarm/flaskfarm"
 declare -x FF_SRC="${FF_ROOT}/src"
-declare -x FF_REQUIREMENTS_APT_INSTALL=true
-declare -x FF_REQUIREMENTS_APT_LIST="
-python3.10
-python3-pip
-redis-server
-git
-net-tools
-unzip
-openssh-server
-"
+declare -x FF_USER_APT_INSTALL=false
+declare -x FF_USER_APT_LIST=""
 
 ##### parsing config.yaml #####
 

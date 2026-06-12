@@ -5,6 +5,7 @@ set -e
 echo ""
 echo "***** Set profile *****"
 echo ""
+
 [[ ! -e "/etc/profile.d/ff-profile.sh" ]] && {
     ln -s ${FF_DATA}/ff-profile.sh /etc/profile.d/ff-profile.sh
 }
@@ -14,20 +15,16 @@ FF_RESTART_COUNT=0
 printf "${FF_RESTART_COUNT}" > /var/run/s6/container_environment/FF_RESTART_COUNT
 
 echo ""
-echo "***** Install the required packages *****"
+echo "***** Install user-defined extra APT packages *****"
 echo ""
-[ ${FF_REQUIREMENTS_APT_INSTALL:-true} == true ] && apt-get update && apt-get install -y ${FF_REQUIREMENTS_APT_LIST}
+[ ${FF_USER_APT_INSTALL:-false} == true ] && apt-get update && apt-get install -y ${FF_USER_APT_LIST}
 
 echo ""
-echo "***** Setup SSH *****"
+echo "***** Setup SSH Password *****"
 echo ""
-mkdir -p /var/run/sshd
-
 # root 계정 비밀번호 설정
 PASS="${SSH_PASSWORD:-flaskfarm}"
 echo "root:${PASS}" | chpasswd
-sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
 echo ""
 echo "***** Clone flaskfarm *****"
@@ -49,7 +46,7 @@ fi
 echo ""
 echo "***** Install the flaskfarm package in 'edit' mode *****"
 echo ""
-pip install -U pip setuptools && pip install -e "${FF_ROOT}"
+pip install --no-deps -e "${FF_ROOT}"
 
 echo ""
 echo "***** Cleanup *****"

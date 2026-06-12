@@ -10,3 +10,6 @@
 !docker-compose.sample.yaml
 !Dockerfile
 !README.md
+!requirements.txt
+!.github/
+!.github/**
